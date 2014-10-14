@@ -1,0 +1,55 @@
+-- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: Empir
+-- ------------------------------------------------------
+-- Server version	5.5.35-0ubuntu0.12.04.2-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `proc`
+--
+
+DROP TABLE IF EXISTS `proc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `proc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `frequency` float DEFAULT NULL,
+  `cache` float DEFAULT NULL,
+  `speed` float DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `proc`
+--
+
+LOCK TABLES `proc` WRITE;
+/*!40000 ALTER TABLE `proc` DISABLE KEYS */;
+INSERT INTO `proc` VALUES (1,'Intel Core i7-3960X Extreme',3.3,16.5,99.4,35319),(2,'Intel Core i7-3930K',3.2,13.5,93.7,21655),(3,'Intel Core i7-990X Extreme',3.46,13.5,89.1,33000),(4,'Intel Core i7-980X Extreme',3.33,13.5,85.7,30683),(5,'Intel Core i7-970',3.2,12,81.4,18788),(6,'Intel Core i7-2700K',3.5,9,68.2,11895),(7,'Intel Core i7-2600K',3.4,9,67.4,10614),(8,'Intel Core i7-2600',3.4,9,67.3,9699),(9,'Intel Core i7-2600 BOX',3.4,9,67.3,10980),(10,'Intel Core i7-975 Extreme',3.33,9,63.7,28060),(11,'Intel Core i7-965 Extreme',3.2,9,62.9,22295),(12,'AMD Phenom II X6 1100T BE',3.3,9,62.6,6862),(13,'Intel Core i7-880',3.06,9,62.1,18300),(14,'Intel Core i7-960',3.2,9,60.9,8387),(15,'Intel Core i7-875K',2.93,9,60.8,10980),(16,'Intel Core i7-960 BOX',3.2,9,60.8,10827),(17,'Intel Core i7-870',2.93,9,60.7,9607),(18,'AMD Phenom II X6 1090T BE',3.2,9,60.1,5978),(19,'Intel Core i7-950',3.06,9,59.7,9180),(20,'Intel Core i5-2550K',3.4,7,59.7,7930),(21,'AMD FX-8150 BOX BE',3.6,16,59.4,9394),(22,'Intel Core i7-2600S',2.8,9,59.2,9912),(23,'Intel Core i5-2500',3.3,7,58.8,6740),(24,'Intel Core i5-2500K BOX',3.3,7,58.8,7930),(25,'AMD Phenom II X6 1075T',3,9,57.9,5764),(26,'Intel Core i5-2450P',3.2,7,57.1,6923),(27,'Intel Core i5-2400',3.1,7,56.3,6069),(28,'Intel Core i7-930',2.8,9,55.4,8692),(29,'Intel Core i7-860',2.8,9,54.8,8570),(30,'AMD Phenom II X6 1055T',2.8,9,54.5,5032),(31,'Intel Core i7-920',2.66,9,53.5,8021),(32,'Intel Core i5-2310',2.9,7,52.8,5856),(33,'Intel Core i5-2300',2.8,7,52.3,5825),(34,'AMD Phenom II X4 980 BE',3.7,8,51.4,5429),(35,'AMD FX-8120',3.1,16,51.3,7167),(36,'AMD Phenom II X6 1035T',2.6,9,50.9,4849),(37,'AMD Phenom II X4 975 BE',3.6,8,50.2,5093),(38,'AMD Phenom II X4 970 BE',3.5,8,49.5,4819),(39,'Intel Core i5-2500S',2.7,7,48.6,6832),(40,'Intel Core i5-2320',3,7,48.5,5917),(41,'Intel Core i5-760',2.8,9,48.3,5612),(42,'Intel Core i5-2400S',2.5,7,47.9,6283),(43,'Intel Core i5-2405S',2.5,7,47.4,6771),(44,'AMD Phenom II X4 955 BE',3.2,8,45.9,3934),(45,'AMD Phenom II X4 955',3.2,8,45.6,3965),(46,'Intel Core 2 Extreme QX9650',3,12,45.2,9241),(47,'Intel Core 2 Quad Q9650',3,12,44.3,10766),(48,'AMD Phenom II X4 945',3,8,43.3,3599),(49,'AMD Phenom II X4 850',3.3,2,43.3,3812),(50,'AMD Phenom II X4 960T BE',3,8,42.7,4148),(51,'AMD FX-6100',3.3,14,42.6,4880),(52,'AMD Phenom II X4 B95',3,8,42.5,3873),(53,'AMD Phenom II X4 840',3.2,2,42.5,3599),(54,'Intel Core 2 Quad Q9550',2.83,12,42.5,7076),(55,'AMD ATHLON II X4 650',3.2,2,41.6,3751),(56,'Intel Core i5-2500T',2.3,7,41.5,6771),(57,'AMD ATHLON II X4 645',3.1,2,41.5,3782),(58,'AMD Phenom II X4 940 BE',3,8,41.3,3812),(59,'AMD Phenom II X4 B93',2.8,8,40.4,3477),(60,'AMD Phenom II X4 820',2.8,6,40.4,3751),(61,'Intel Core 2 Quad Q9450',2.66,12,40.4,5917),(62,'Intel Core i3-2125',3.3,3.5,40.4,4483),(63,'Intel Core 2 Quad Q9500',2.83,6,40.4,6496),(64,'AMD Phenom II X4 830',2.8,8,40.3,3568),(65,'AMD ATHLON II X4 640',3,2,40.3,3660),(66,'AMD ATHLON II X4 651',3,4,40.1,3263),(67,'AMD A8 3870K BE',3,4,39.8,4605),(68,'Intel Core i3-2130',3.4,3.5,39.6,4575),(69,'AMD ATHLON II X4 651 BOX',3,4,39.6,3538),(70,'Intel Core i5-680',3.6,4.5,39.5,9333),(71,'AMD ATHLON II X4 635',2.9,2,39.3,3050),(72,'Intel Core i3-2120',3.3,3.5,38.7,3782),(73,'AMD ATHLON II X4 630',2.8,2,38.3,3477),(74,'Intel Core i5-670',3.46,4.5,38.2,9028),(75,'Intel Core 2 Quad Q8400',2.66,4,37.3,4178),(76,'Intel Core i5-660',3.33,4.5,37.2,5215),(77,'Intel Core i3-2100',3.1,3.5,36.9,3629),(78,'Intel Core i3-2105',3.1,3.5,36.9,4148),(79,'Intel Core i5-2390T',2.7,3.5,36.7,6069),(80,'Intel Core i3-2105 BOX',3.1,3.5,36.6,4758),(81,'AMD A6 3670K BE',2.7,4,36.6,3904),(82,'Intel Core 2 Quad Q9300',2.5,6,36.5,4758),(83,'Intel Core i5-661',3.33,4.5,36.2,5154),(84,'Intel Core i5-650',3.2,4.5,36.1,5215),(85,'AMD ATHLON II X4 620',2.6,2,36.1,3050),(86,'AMD ATHLON II X4 631',2.6,4,35.6,2562),(87,'Intel Core 2 Quad Q8300',2.5,4,35.5,4056),(88,'AMD A6 3650',2.6,4,35.3,3873),(89,'Intel Core i3-560',3.33,4.5,35.2,3751);
+/*!40000 ALTER TABLE `proc` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-10-14 22:29:22
