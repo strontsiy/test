@@ -8,6 +8,8 @@ use CGI::Carp;
 use Chart::Gnuplot;
 
 print header (-charset => 'UTF-8'), start_html();
+print "<link rel=stylesheet type=text/css href=style.css />";
+print "<link rel=stylesheet type=text/css href=mystyle.css />";
 
 my $dsn = 'DBI:mysql:Empir:localhost';
 my $db_user_name = 'root';
@@ -34,7 +36,7 @@ $sth->finish;
 
 #--
 
-print "<div>Group by $col</div>";
+print "<div class='BlockCaption'>Group by $col</div>";
 my $grouplen = ($minmax[1] - $minmax[0]) / $count;
 my $minlen = $minmax[0]; 
 my $n = 1;
@@ -53,9 +55,9 @@ while ($minlen < $minmax[1]){
     $sth->execute;
     my @table = @{$sth->fetchall_arrayref};
     $sth->finish;
-    print div({-align=>'center'}, sprintf("%.3f", $minlen), " - ", sprintf("%.3f", $maxlen));
+    print div({-align=>'center'}, sprintf("Interval: %.3f", $minlen), " - ", sprintf("%.3f", $maxlen));
     #print div({-align=>'center'}, $minlen, " - ", $maxlen);
-    print "<table border='1'>";
+    print "<table class='pure-table pure-table-bordered pure-table-striped' style='margin: 30px auto;'>";
     print "<tr>", 
             td("id"), td("name"), td("frequency GHz"), 
             td("cache Mb"), td("speed %"), td("price rub"), td("price/speed"), 
@@ -177,9 +179,9 @@ while ($minlen < $minmax[1]){
             title => "$col depending on the price",
             style => "linespoints",
         );
-        print "<a href='graphics/1$n.png'>$col depending on the cache</a><br>";
-        print "<a href='graphics/2$n.png'>$col depending on the speed</a><br>";
-        print "<a href='graphics/3$n.png'>$col depending on the price</a><br>";
+        print "<a class='GraphURLS'  href='graphics/1$n.png'>$col depending on the cache</a>";
+        print "<a class='GraphURLS'  href='graphics/2$n.png'>$col depending on the speed</a>";
+        print "<a class='GraphURLS'  href='graphics/3$n.png'>$col depending on the price</a>";
     }
     elsif ($col eq "cache"){
         $dataset1 = Chart::Gnuplot::DataSet->new(
@@ -200,9 +202,9 @@ while ($minlen < $minmax[1]){
             title => "$col depending on the price",
             style => "linespoints",
         );
-        print "<a href='graphics/1$n.png'>$col depending on the frequency</a><br>";
-        print "<a href='graphics/2$n.png'>$col depending on the speed</a><br>";
-        print "<a href='graphics/3$n.png'>$col depending on the price</a><br>";
+        print "<a class='GraphURLS'  href='graphics/1$n.png'>$col depending on the frequency</a>";
+        print "<a class='GraphURLS'  href='graphics/2$n.png'>$col depending on the speed</a>";
+        print "<a class='GraphURLS'  href='graphics/3$n.png'>$col depending on the price</a>";
     }
     elsif ($col eq "speed"){
         $dataset1 = Chart::Gnuplot::DataSet->new(
@@ -223,9 +225,9 @@ while ($minlen < $minmax[1]){
             title => "$col depending on the price",
             style => "linespoints",
         );
-        print "<a href='graphics/1$n.png'>$col depending on the frequency</a><br>";
-        print "<a href='graphics/2$n.png'>$col depending on the cache</a><br>";
-        print "<a href='graphics/3$n.png'>$col depending on the price</a><br>";
+        print "<a class='GraphURLS'  href='graphics/1$n.png'>$col depending on the frequency</a>";
+        print "<a class='GraphURLS'  href='graphics/2$n.png'>$col depending on the cache</a>";
+        print "<a class='GraphURLS'  href='graphics/3$n.png'>$col depending on the price</a>";
     }
     elsif ($col eq "price"){
         $dataset1 = Chart::Gnuplot::DataSet->new(
@@ -246,9 +248,9 @@ while ($minlen < $minmax[1]){
             title => "$col depending on the speed",
             style => "linespoints",
         );
-        print "<a href='graphics/1$n.png'>$col depending on the frequency</a><br>";
-        print "<a href='graphics/2$n.png'>$col depending on the cache</a><br>";
-        print "<a href='graphics/3$n.png'>$col depending on the speed</a><br>";
+        print "<a class='GraphURLS'  href='graphics/1$n.png'>$col depending on the frequency</a>";
+        print "<a class='GraphURLS'  href='graphics/2$n.png'>$col depending on the cache</a>";
+        print "<a class='GraphURLS'  href='graphics/3$n.png'>$col depending on the speed</a>";
     }
     eval {
         $chart1->plot2d($dataset1); 

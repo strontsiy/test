@@ -6,6 +6,7 @@ use DBI;
 use CGI qw(:standard escapeHTML);
 
 print header (-charset => 'UTF-8'), start_html("show table");
+print "<link rel=stylesheet type=text/css href=style.css />";
 
 my $dsn = 'DBI:mysql:Empir:localhost';
 my $db_user_name = 'root';
@@ -19,7 +20,7 @@ $sth->execute;
 my @table = @{$sth->fetchall_arrayref};
 $sth->finish;
 
-print "<table border='1' align='center'>";
+print "<table class='pure-table pure-table-bordered pure-table-striped' style='margin: 30px auto;'>";
 print "<tr>", 
            td("id"), td("name"), td("frequency GHz"), 
            td("cache Mb"), td("speed %"), td("price rub"), td("price/speed"), 

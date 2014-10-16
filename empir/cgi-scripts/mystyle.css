@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'FedraSansPro';
+    src: url('FedraSansPro.otf');
+}
+
+body{
+	font-family: Sans;
+}
+
+.BlockCaption{
+	background-color: rgba(195, 255, 0, 0.41);
+	text-align: center;
+	height: 50px;
+	font-size: larger;
+	font-size: 24px;
+	padding: 10px;
+	margin-bottom: 30px;
+	font-family: FedraSansPro;
+}
+
+div{
+	background-color: rgba(255, 255, 0, 0.41);
+	text-align: center;
+	padding: 10px;
+}
+
+.GraphURLS{
+	display: inline-block;
+	background-color: rgba(39, 58, 200, 1);
+	width: 300px;
+	height: 40px;
+	border-radius: 6px;
+	text-align: center;
+	color: white;
+	text-decoration: none;
+	margin: 15px 10px 50px auto;
+}
+
