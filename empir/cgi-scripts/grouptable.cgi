@@ -70,6 +70,10 @@ while ($minlen < $minmax[1]){
         next;
     }
     my $tsp = 0;
+    my $mf = 0;
+    my $mc = 0;
+    my $ms = 0;
+    my $mp = 0;
     for my $arref (@table){
         print "<tr>";
         for (0..$#{$arref}){
@@ -80,13 +84,21 @@ while ($minlen < $minmax[1]){
         push @y3, $$arref[3];
         push @y4, $$arref[4];
         push @y5, $$arref[5];
+        $mf += $$arref[2];
+        $mc += $$arref[3];
+        $ms += $$arref[4];
+        $mp += $$arref[5];
         my $sp = $$arref[5] / $$arref[4];
         $tsp += $sp;
         print td(sprintf("%.3f", $sp));
         print "</tr>";
     }
+    $mf /= @y2;
+    $mc /= @y3;
+    $ms /= @y4;
+    $mp /= @y5;
     $tsp /= @y4;
-    print "<tr>", td("E"), td(), td(), td(), td(), td(), td(sprintf("%.3f", $tsp)), "</tr>";
+    print "<tr>", td("E"), td(), td(sprintf("%.3f", $mf)), td(sprintf("%.3f", $mc)), td(sprintf("%.1f", $ms)), td(sprintf("%.1f", $mp)), td(sprintf("%.3f", $tsp)), "</tr>";
     print "</table>";
     my $num = 0;
     if ($col eq "frequency"){
