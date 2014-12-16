@@ -7,6 +7,106 @@ use CGI qw(:standard escapeHTML);
 use CGI::Carp;
 use Chart::Gnuplot;
 
+sub xsr1 {
+    my (@num) = @_;
+    my $xsr = 0;
+    for (@num){
+        $xsr += $_;
+    }
+    $xsr /= @num;
+    return $xsr;
+}
+
+sub si_for_r {
+    my (@num) = @_;
+    my $xsr = xsr1(@num);
+    my $sum = 0;
+    for (@num){
+        $sum += abs($_ - $xsr)**2;
+    }
+    return sqrt($sum);
+}
+
+sub disp {
+    my (@num) = @_;
+    my $xsr = xsr1(@num);
+    my $sum = 0;
+    for (@num){
+        $sum += abs($_ - $xsr)**2;
+    }
+    my $d = (1 / @num) * $sum;
+    return $d;
+}
+
+sub partly_kor {
+    my ($x1, $y1) = @_;
+    my @x = @{$x1};
+    my @y = @{$y1};
+    my $si1 = si_for_r(@x);
+    my $si2 = si_for_r(@y);
+    my $xsr = xsr1(@x);
+    my $ysr = xsr1(@y);
+    my $r = 0;
+    for my $i (0..$#x) {
+        $r += ($x[$i] - $xsr) * ($y[$i] - $ysr);
+    }
+    $r /= $si1 * $si2;
+    return $r;
+}
+
+
+
+sub optim {
+    my ($x, $xsr, $disp) = @_;
+    my @xn = ();
+    for (@{$x}){
+        my $opt = ($_ - $xsr) / sqrt(@{$x} * $disp);
+        push @xn, $opt;
+    }
+    return @xn;
+}
+
+sub optim_all {
+    my ($x11, $x21, $x31, $x41, $x51) = @_;
+    my @x1 = @{$x11};
+    my @x2 = @{$x21};
+    my @x3 = @{$x31};
+    my @x4 = @{$x41};
+    my @x5 = @{$x51};
+    my $x2sr = xsr1(@x2);
+    my $x3sr = xsr1(@x3);
+    my $x4sr = xsr1(@x4);
+    my $x5sr = xsr1(@x5);
+    print STDERR "\n$x5sr\n";
+    my $disp2 = disp(@x2);
+    my $disp3 = disp(@x3);
+    my $disp4 = disp(@x4);
+    my $disp5 = disp(@x5);
+    print STDERR "\n$disp5\n";
+    my (@xn2, @xn3, @xn4, @xn5);
+    @xn2 = optim(\@x2, $x2sr, $disp2);
+    @xn3 = optim(\@x3, $x3sr, $disp3);
+    @xn4 = optim(\@x4, $x4sr, $disp4);
+    @xn5 = optim(\@x5, $x5sr, $disp5);
+    my $dsn = 'DBI:mysql:Empir:localhost';
+    my $db_user_name = 'root';
+    my $db_password = '955742';
+    my ($id, $password);
+    my $dbh = DBI->connect($dsn, $db_user_name, $db_password);
+    for (0..$#xn2) {
+        my $name  = $x1[$_];
+        my $freq  = sprintf("%.8f", $xn2[$_]);
+        my $cache = sprintf("%.8f", $xn3[$_]);
+        my $speed = sprintf("%.8f", $xn4[$_]);
+        my $price = sprintf("%.8f", $xn5[$_]);
+        my $sql = "INSERT INTO proc_optim (name, frequency, cache, speed, price) "
+                 ."VALUES('$name', $freq, $cache, $speed, $price);";
+        my $sth = $dbh->prepare($sql);
+        $sth->execute;
+        $sth->finish;
+    }
+}
+
 print header (-charset => 'UTF-8'), start_html();
 print "<link rel=stylesheet type=text/css href=style.css />";
 print "<link rel=stylesheet type=text/css href=mystyle.css />";
@@ -41,15 +141,15 @@ my $grouplen = ($minmax[1] - $minmax[0]) / $count;
 my $minlen = $minmax[0]; 
 my $n = 1;
 my ($chart1, $chart2, $chart3, $dataset1, $dataset2, $dataset3);
-my (@y2, @y3, @y4, @y5, @yhisto, @xhisto);
+my (@y1, @y2, @y3, @y4, @y5, @yhisto, @xhisto);
 while ($minlen < $minmax[1]){
-    @y2 = (); @y3 = (); @y4 = (); @y5 = ();
+    @y1 = (); @y2 = (); @y3 = (); @y4 = (); @y5 = ();
     my $maxlen = $minlen + $grouplen;
     if ($maxlen == $minmax[1]){
-        $sql = "SELECT * FROM proc WHERE $col>=$minlen and $col<=$maxlen ORDER BY $col";
+        $sql = "SELECT * FROM proc WHERE $col>=$minlen and $col<=$maxlen ORDER BY $col DESC";
     }
     else{
-        $sql = "SELECT * FROM proc WHERE $col>=$minlen and $col<$maxlen ORDER BY $col";
+        $sql = "SELECT * FROM proc WHERE $col>=$minlen and $col<$maxlen ORDER BY $col DESC";
     }
     $sth = $dbh->prepare($sql);
     $sth->execute;
@@ -80,6 +180,7 @@ while ($minlen < $minmax[1]){
             #print td("$$arref[$_]&nbsp&nbsp");
             print td("$$arref[$_]");
         }
+        push @y1, $$arref[1];
         push @y2, $$arref[2];
         push @y3, $$arref[3];
         push @y4, $$arref[4];
@@ -141,11 +242,32 @@ while ($minlen < $minmax[1]){
     # sr kvadratichnoe
     my $si = sqrt($d);
 
+    # r(freequence cache)
+    my $r23 = sprintf("%.6f",partly_kor(\@y2, \@y3));
+    # r(freequence speed)
+    my $r24 = sprintf("%.6f",partly_kor(\@y2, \@y4));
+    # r(freequence price)
+    my $r25 = sprintf("%.6f",partly_kor(\@y2, \@y5));
+    # r(cache speed)
+    my $r34 = sprintf("%.6f",partly_kor(\@y3, \@y4));
+    # r(cache price)
+    my $r35 = sprintf("%.6f",partly_kor(\@y3, \@y5));
+    # r(speed price)
+    my $r45 = sprintf("%.6f",partly_kor(\@y4, \@y5));
+
+    #optim_all(\@y1, \@y2, \@y3, \@y4, \@y5);
+
     print "<div>";
-    	print "Размер вариации R = $r<br>";
+    	print "Размах вариации R = $r<br>";
     	print "Среднее линейное отклонение a = $a<br>";
     	print "Дисперсия D = $d<br>";
     	print "Среднее квадратическое отклонение si = $si<br>";
+        print "r<font size=1>freeq_cache</font> = $r23<br>";
+        print "r<font size=1>freeq_speed</font> = $r24<br>";
+        print "r<font size=1>freeq_price</font> = $r25<br>";
+        print "r<font size=1>cache_speed</font> = $r34<br>";
+        print "r<font size=1>cache_price</font> = $r35<br>";
+        print "r<font size=1>speed_price</font> = $r45<br>";
     print "</div>";
     $minlen = $maxlen;
     
