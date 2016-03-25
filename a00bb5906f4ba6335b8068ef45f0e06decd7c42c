@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da9b358b_be02103d",
+        "filename": "test_1.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1007904
+      },
+      "writtenOn": "2016-03-25T05:50:25Z",
+      "side": 1,
+      "message": "a long name for the classical functions. \"rsort\" looks better",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 19
+      },
+      "revId": "a00bb5906f4ba6335b8068ef45f0e06decd7c42c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9b358b_9eff4c34",
+        "filename": "test_1.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1007904
+      },
+      "writtenOn": "2016-03-25T05:50:25Z",
+      "side": 1,
+      "message": "will this sub be used only for numbers?",
+      "range": {
+        "startLine": 8,
+        "startChar": 21,
+        "endLine": 8,
+        "endChar": 24
+      },
+      "revId": "a00bb5906f4ba6335b8068ef45f0e06decd7c42c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
